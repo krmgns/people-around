@@ -49,7 +49,7 @@ jobs:
         run: |
           npm run build
           npm run start:prod
-          sleep 3 && echo "" ; echo ""
+          sleep 3 && echo "" ;
           echo "> Checking Server: http://localhost:3000/" ; echo ""
           curl -sS -I "http://localhost:3000/"
 
