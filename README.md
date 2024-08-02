@@ -1,7 +1,7 @@
 ## Description
 People Around is a simple NestJS application to find people aroud you and send them likes and also dislikes.
 
-After these first three steps, you can open [http://localhost:3000/feed](http://localhost:3000/feed) to see user list.
+After these first three steps below, you can open [http://localhost:3000/feed](http://localhost:3000/feed) to see user list.
 
 ## Installation
     $ npm install
