@@ -42,7 +42,6 @@ jobs:
       - name: Run Prisma (migrate/seed)
         run: |
             npm run prisma:clean
-            npm run prisma:init
             npm run prisma:migrate
             npm run prisma:seed
 
