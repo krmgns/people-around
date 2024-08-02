@@ -48,7 +48,7 @@ jobs:
       - name: Run Application
         run: |
           npm run build
-          npm run start:dev
+          npm run start:dev && exit 0
           sleep 10 && curl http://localhost:3000 -I
 
       - name: Run Tests
