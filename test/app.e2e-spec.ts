@@ -10,10 +10,14 @@ import { ALI_LAT, ALI_LON } from './../src/data/utils';
 const API_URL = 'http://localhost:3000';
 
 describe('AppController (e2e)', () => {
-  it('GET /', () => {
-    request(API_URL)
+  it('GET /', async () => {
+    const response = await request(API_URL)
       .get('/')
-      .expect(404);
+      .expect(200);
+
+    const okay = response.body.okay;
+
+    expect(okay).toBe(true);
   });
 
   it('GET /feed', async () => {
