@@ -15,6 +15,13 @@ export class AppController {
     private userService: UserService
   ) {}
 
+  @Get('/')
+  root(): object {
+    return {
+      okay: true
+    };
+  }
+
   @Get('/feed')
   getFeed(
     @Query('location') location?: string,
