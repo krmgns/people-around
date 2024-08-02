@@ -35,7 +35,7 @@ describe('AppController (e2e)', () => {
     expect(user._distance).toEqual(expect.any(Number));
   });
 
-  it('GET /feed [with location filter]', async () => {
+  it('GET /feed [with query]', async () => {
     // @see seed.ts file for location.
     const filter = `?location=${ALI_LAT},${ALI_LON}&metric=km`;
     const response = await request(API_URL)
