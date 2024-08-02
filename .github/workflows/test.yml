@@ -39,9 +39,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Prisma (init/migrate/seed)
+      - name: Run Prisma (migrate/seed)
         run: |
-            npm run prisma:init
             npm run prisma:migrate
             npm run prisma:seed
 
