@@ -1,0 +1,38 @@
+name: E2E Tests
+
+on:
+  pull_request:
+    branches: ['*']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # Cannot use another version for now.
+        node-version: ['17.9.0']
+
+    steps:
+      - name: Copy Repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Application
+        run: npm run start
+
+      - name: Run Prisma (init/migrate/seed)
+        run: |
+            npm run prisma:init
+            npm run prisma:migrate
+            npm run prisma:seed
+
+      - name: Run Tests
+        run: npm run test:e2e
