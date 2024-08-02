@@ -49,6 +49,7 @@ jobs:
         run: |
           npm run build
           npm run start:prod
+          echo "Checking server @ http://localhost:3000/"
           sleep 5 && curl http://localhost:3000/ -I
 
       - name: Run Tests
