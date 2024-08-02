@@ -14,6 +14,15 @@ jobs:
         node-version: ['17.9.0']
 
     steps:
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        run: cat .env
+        with:
+          mysql version: '8.0'
+          mysql database: 'people_around'
+          mysql user: ${{ secrets.DATABASE_USER }}
+          mysql password: ${{ secrets.DATABASE_PASSWORD }}
+
       - name: Copy Repository
         uses: actions/checkout@v3
 

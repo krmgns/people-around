@@ -14,6 +14,8 @@ After these first three steps, you can open [http://localhost:3000/feed](http://
     $ npm run prisma:migrate
     $ npm run prisma:seed
 
+Note: Please change `.env` file contents with your credentials for database connection.
+
 ## Testing
     $ npm run test:e2e
 
