@@ -48,8 +48,8 @@ jobs:
       - name: Run Application
         run: |
           npm run build
-          npm run start:dev && exit 0
-          sleep 10 && curl http://localhost:3000 -I
+          npm run start:test
+          sleep 5 && curl http://localhost:3000 -I
 
       - name: Run Tests
         run: npm run test:e2e
