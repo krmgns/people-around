@@ -16,11 +16,16 @@ jobs:
     services:
       mysql:
         image: mysql:8.0
+        ports:
+          - 8888:3306
         env:
           MYSQL_ROOT_PASSWORD: ''
           MYSQL_DATABASE: 'people_around'
+
+      redis:
+        image: redis:4.0
         ports:
-            - '8888:3306'
+          - 6379:6379
 
     steps:
       # - name: Read .env File
