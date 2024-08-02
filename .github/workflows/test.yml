@@ -45,7 +45,10 @@ jobs:
             npm run prisma:seed
 
       - name: Run Application
-        run: npm run start
+        run: |
+          npm run build
+          npm run start:prod
+          sleep 10 && curl http://localhost:3000 -I
 
       - name: Run Tests
         run: npm run test:e2e

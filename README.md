@@ -10,7 +10,7 @@ After these first three steps, you can open [http://localhost:3000/feed](http://
     $ npm run start
 
 ## Seeding
-    $ npm run prisma:init
+    # $ npm run prisma:init
     $ npm run prisma:migrate
     $ npm run prisma:seed
 
