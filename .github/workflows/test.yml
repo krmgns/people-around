@@ -39,14 +39,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Application
-        run: npm run start
-
       - name: Run Prisma (init/migrate/seed)
         run: |
             npm run prisma:init
             npm run prisma:migrate
             npm run prisma:seed
+
+      - name: Run Application
+        run: npm run start
 
       - name: Run Tests
         run: npm run test:e2e
