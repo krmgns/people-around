@@ -20,8 +20,8 @@ jobs:
         with:
           mysql version: '8.0'
           mysql database: 'people_around'
-          mysql user: ${{ secrets.DATABASE_USER }}
-          mysql password: ${{ secrets.DATABASE_PASSWORD }}
+          # mysql user: ${{ secrets.DATABASE_USER }}
+          # mysql password: ${{ secrets.DATABASE_PASSWORD }}
 
       - name: Copy Repository
         uses: actions/checkout@v3
