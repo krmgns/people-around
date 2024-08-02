@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Setup MySQL
         uses: mirromutth/mysql-action@v1.1
-        run: source .env
+        # run: source .env
         with:
           mysql version: '8.0'
           mysql database: 'people_around'
