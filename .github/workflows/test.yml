@@ -13,22 +13,31 @@ jobs:
         # Cannot use other versions for now.
         node-version: ['17.9.0']
 
-    steps:
-      - name: Read .env File
-        uses: c-py/action-dotenv-to-setenv@v5
-        id: env
-        with:
-          env-file: .env
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_DATABASE: 'people_around'
+        ports:
+            - '8888:3306'
 
-      - name: Setup MySQL
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql version: '8.0'
-          mysql database: 'people_around'
-          # mysql user: ${{ secrets.DATABASE_USER }}
-          # mysql password: ${{ secrets.DATABASE_PASSWORD }}
-          mysql user: ${{ steps.env.outputs.DATABASE_USER }}
-          mysql password: ${{ steps.env.outputs.DATABASE_PASSWORD }}
+    steps:
+      # - name: Read .env File
+      #   uses: c-py/action-dotenv-to-setenv@v5
+      #   id: env
+      #   with:
+      #     env-file: .env
+
+      # - name: Setup MySQL
+      #   uses: mirromutth/mysql-action@v1.1
+      #   with:
+      #     mysql version: '8.0'
+      #     mysql database: 'people_around'
+      #     # mysql user: ${{ secrets.DATABASE_USER }}
+      #     # mysql password: ${{ secrets.DATABASE_PASSWORD }}
+      #     mysql user: ${{ steps.env.outputs.DATABASE_USER }}
+      #     mysql password: ${{ steps.env.outputs.DATABASE_PASSWORD }}
 
       - name: Copy Repository
         uses: actions/checkout@v3
