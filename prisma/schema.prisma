@@ -1,0 +1,59 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(50)
+  email     String   @db.VarChar(150) @unique
+  password  String   @db.VarChar(255)
+  bio       String?  @db.VarChar(500)
+
+  // Geo Fields.
+  latitude  Float?
+  longitude Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model UserLike {
+  id        Int      @id @default(autoincrement())
+  likerId   Int
+  likedId   Int
+
+  // 1: Like, 0: Dislike
+  action    Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  // Compound Unique Key.
+  @@unique(name: "likeId", [likerId, likedId])
+
+  // Couldn't make it work, it's not doing migration & it's not possible to use upsert() with compounds.
+  // likerRel  User @relation(name: "likerRel", fields: [likerId], references: [id], onDelete: Cascade)
+  // likedRel  User @relation(name: "likedRel", fields: [likedId], references: [id], onDelete: Cascade)
+}
+
+model UserAvatar {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+
+  // Unique hash (maybe UUID, without dashes for MySQL).
+  hash      String   @db.Char(32) @unique
+
+  // For "size", "dimentions" etc.
+  info      Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  // Couldn't make it work, it's not doing migration.
+  // avatarRel User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
