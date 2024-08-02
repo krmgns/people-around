@@ -43,14 +43,13 @@ export class UserService {
     const cache = await this.redis.getClient();
     const key = toKey('user', email);
 
-    let user: any = await cache.get(key);
+    const value: any = await cache.get(key);
+    let user: User;
 
-    if (user) {
-      user = Json.decode(user);
-      console.log('Found user in cache:', user);
+    if (value) {
+      user = Json.decode(value);
     } else {
       user = await this.find({ email });
-      console.log('Saved user to cache:', user);
       cache.set(key, Json.encode(user));
     }
 
@@ -83,15 +82,15 @@ export class UserService {
     const cache = await this.redis.getClient();
     const key = toKey('user', email);
 
-    let user: any = await cache.get(key);
+    const value: any = await cache.get(key);
 
-    if (user) {
+    if (value) {
       cache.del(key);
-      return { okay: true, email: email };
+      return { okay: true, email };
     }
 
     // Already logged out.
-    return { okay: false, email: email };
+    return { okay: false, email };
   }
 
   /**

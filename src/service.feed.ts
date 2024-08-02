@@ -1,14 +1,19 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { User, Prisma } from '@prisma/client';
+import { RedisService } from 'nestjs-redis';
 import { PrismaLink } from './data/prisma';
 import { FeedParams } from './data/params';
+import { Json, toKey } from './data/utils';
 
 @Injectable()
 export class FeedService {
   private METRIC_KM: number = 0.001;
   private METRIC_MI: number = 0.000621371192;
 
-  constructor(private prisma: PrismaLink) {}
+  constructor(
+    private link: PrismaLink,
+    private redis: RedisService
+  ) {}
 
   /**
    * List users.
@@ -44,7 +49,18 @@ export class FeedService {
       ORDER BY _distance ASC, id DESC
     `;
 
-    const users: User[] = await this.prisma.$queryRaw<User[]>(query);
+    const cache = await this.redis.getClient();
+    const key = toKey('users', query);
+
+    const value: any = await cache.get(key);
+    let users: User[];
+
+    if (value) {
+      users = Json.decode(value);
+    } else {
+      users = await this.link.$queryRaw<User[]>(query);
+      cache.set(key, Json.encode(users));
+    }
 
     if (users?.length) {
       users.map((user: User) => {
